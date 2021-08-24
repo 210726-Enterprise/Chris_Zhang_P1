@@ -22,8 +22,12 @@ public class CatService{
         mapper = new ObjectMapper();
     }
 
-
-
+    /**
+     * Takes in a request from the Servlet to get all Cat Objects from table and submits them
+     * in json format into the response, then returns a response code based on task completion.
+     * @param req
+     * @param resp
+     */
     public void getAllCats(HttpServletRequest req, HttpServletResponse resp) {
         try {
             String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(service.getObjects(metamodel));
@@ -36,6 +40,12 @@ public class CatService{
         }
     }
 
+    /**
+     * Takes in a request from the Servlet to insert a Cat Object into table and returns a response code
+     * based on task completion.
+     * @param req
+     * @param resp
+     */
     public void insertCat(HttpServletRequest req, HttpServletResponse resp) {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -56,6 +66,12 @@ public class CatService{
         }
     }
 
+    /**
+     * Takes in a request from the Servlet to update a Cat Object in table and returns a response code
+     * based on task completion.
+     * @param req
+     * @param resp
+     */
     public void updateCat(HttpServletRequest req, HttpServletResponse resp) {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -79,6 +95,12 @@ public class CatService{
         }
     }
 
+    /**
+     * Takes in a request from the Servlet to remove a Cat Object in table and returns a response code
+     * based on task completion
+     * @param req
+     * @param resp
+     */
     public void deleteCat(HttpServletRequest req, HttpServletResponse resp) {
         int id = Integer.parseInt(req.getParameter("catId"));
 

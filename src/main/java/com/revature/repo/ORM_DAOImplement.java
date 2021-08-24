@@ -17,6 +17,13 @@ public class ORM_DAOImplement implements ORM_DAO{
     ConnectionFactory connectionFactory = new ConnectionFactory();
     private final Connection connection = connectionFactory.getConnection();
 
+    /**
+     * Given a metamodel of a class annotated with @Entity and a list of its fields annotated by
+     * @Column in String format, creates a table of that class if it does not exist already.
+     * @param metamodel
+     * @param columnTypes
+     * @return true if a table of the metamodel's Class was created or already exists; false otherwise
+     */
     @Override
     public boolean createTable(Metamodel<?> metamodel, ArrayList<String> columnTypes) {
         //given an objects class and its params create a table for it to store data in
@@ -43,6 +50,13 @@ public class ORM_DAOImplement implements ORM_DAO{
         return true;
     }
 
+    /**
+     * Given an Object and a metamodel of the Object's Class, inserts the Object into the table
+     * matching the Class.
+     * @param obj
+     * @param metamodel
+     * @return true if the Object was successfully inserted; false otherwise
+     */
     @Override
     public boolean insertObjectIntoTable(Object obj, Metamodel<?> metamodel){
         //Given an object put it into its table based on its class name
@@ -86,6 +100,14 @@ public class ORM_DAOImplement implements ORM_DAO{
         return true;
     }
 
+    /**
+     * Given an Id number serving as the primary key for a table of a Class stored in a Metamodel and a
+     * list of setter methods from the same Class, creates an Object of the Class with the values at that Id
+     * @param id
+     * @param metamodel
+     * @param sortedMethods
+     * @return Optional of the object within the table in case it doesn't exist
+     */
     @Override
     public Optional<Object> getObjectFromTable(int id,Metamodel<?> metamodel,ArrayList<Method> sortedMethods) {
         //given an objects class name and primary key, get its data out of a table and return it as object
@@ -120,6 +142,13 @@ public class ORM_DAOImplement implements ORM_DAO{
         return Optional.empty();
     }
 
+    /**
+     * Given a Metamodel of a Class and its setter methods, retrieves all the data stored in said
+     * Class' table and creates them into a list of objects of the Class
+     * @param metamodel
+     * @param sortedMethods
+     * @return Optional List of objects of the table Class in case they don't exist
+     */
     @Override
     public Optional<List<Object>> getObjectsFromTable(Metamodel<?> metamodel,ArrayList<Method> sortedMethods) {
         //given an object's class find its table and return all the entries in that table
@@ -156,7 +185,13 @@ public class ORM_DAOImplement implements ORM_DAO{
         return Optional.of(allEntries);
     }
 
-
+    /**
+     * Given an updated version of an Object and a Metamodel of its Class, find the matching primary key
+     * in the database table of the Class and update its values to match that of the Object
+     * @param obj
+     * @param metamodel
+     * @return true if Object was updated in its Class table; false otherwise
+     */
     @Override
     public boolean updateObjectInTable(Object obj,Metamodel<?> metamodel) {
         PrimaryField primary = metamodel.getPrimaryKey();
@@ -202,6 +237,13 @@ public class ORM_DAOImplement implements ORM_DAO{
         return true;
     }
 
+    /**
+     * Given an Id serving as a primary key for a table of a Class stored in Metamodel,
+     * locates the specific row and deletes it from the table
+     * @param id
+     * @param metamodel
+     * @return true if row was successfully deleted; false otherwise
+     */
     @Override
     public boolean deleteRow(int id, Metamodel<?> metamodel) {
         PrimaryField primary = metamodel.getPrimaryKey();
@@ -218,6 +260,12 @@ public class ORM_DAOImplement implements ORM_DAO{
         return success == 1;
     }
 
+    /**
+     * Given a Metamodel containing a Class that could have a table in the database,
+     * finds if the table exists and drops it
+     * @param metamodel
+     * @return true if a table was dropped or never existed; false otherwise
+     */
     @Override
     public boolean dropTable(Metamodel<?> metamodel){
         String query = "drop table if exists "+ metamodel.getTableName();
@@ -233,6 +281,7 @@ public class ORM_DAOImplement implements ORM_DAO{
         return true;
     }
 
+    //Closes the connection to the database, ties up loose connections
     @Override
     public void closeConnection(){
         try{

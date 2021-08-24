@@ -17,7 +17,10 @@ public class Metamodel<T> {
     private List<ColumnField> columnFields;
     private List<Method> setterMethods;
 
-
+    /**
+     * Takes in a Class and serves as a wrapper for it as well as obtaining information from it
+     * @param clazz
+     */
     public Metamodel(Class<?> clazz){
         this.clazz = clazz;
     }
@@ -40,6 +43,7 @@ public class Metamodel<T> {
     public Class<?> getClazz(){
         return clazz;
     }
+
     public String getTableName(){
         return clazz.getAnnotation(Entity.class).tableName();
     }

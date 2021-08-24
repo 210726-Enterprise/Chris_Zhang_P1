@@ -11,12 +11,10 @@ public interface ORM_DAO {
 
     //CREATE METHOD(S)
     boolean insertObjectIntoTable(Object obj, Metamodel<?> metamodel);
-
     boolean createTable(Metamodel<?> metamodel, ArrayList<String> columnTypes);
 
     //READ METHOD(S)
     Optional<Object> getObjectFromTable(int id, Metamodel<?> metamodel, ArrayList<Method> sortedMethods);
-
     Optional<List<Object>> getObjectsFromTable(Metamodel<?> metamodel, ArrayList<Method> sortedMethods);
 
     //UPDATE METHOD(S)

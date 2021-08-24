@@ -19,7 +19,10 @@ public class ConnectionFactory {
         password = System.getenv("db_password");
     }
 
-
+    /**
+     * Takes in a parameters from a config that will connect to a database of choice.
+     * @param cfg
+     */
     public ConnectionFactory(Config cfg){
         url = cfg.getUrl();
         username = cfg.getUsername();
