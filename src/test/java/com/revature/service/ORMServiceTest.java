@@ -19,8 +19,9 @@ public class ORMServiceTest {
     @Before
     public void setUp() throws Exception {
         metamodel = new Metamodel(Cat.class);
-        cat = new Cat("Cat","Test",0);
+        cat = new Cat("Test","Cat",0);
         catUpdate = new Cat(1,"Steroids","Buff",0);
+        dropTableTest();
     }
 
     @Test

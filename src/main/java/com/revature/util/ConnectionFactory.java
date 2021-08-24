@@ -28,8 +28,11 @@ public class ConnectionFactory {
 
     public static synchronized Connection getConnection(){
         try {
+            Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(url,username,password);
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return connection;

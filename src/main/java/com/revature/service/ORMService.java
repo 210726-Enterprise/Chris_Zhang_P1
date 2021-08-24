@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ORMService {
-    private ORM_DAO ormDAO;
+    protected ORM_DAO ormDAO;
 
     public ORMService(){
         ormDAO = new ORM_DAOImplement();
